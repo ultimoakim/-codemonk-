@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Challenges</h1>
+  {% for challenge in challenges %}
+    <a href="{% url 'detail' challenge.id %}">
+      <div class="card">
+        <div class="card-content">
+          <p>Title: {{ challenge.title }}</p>
+          <p>Description: {{ challenge.description|linebreaks }}</p>
+          <p>Date: {{ challenge.date }}</p>
+        </div>
+      </div>
+    </a>
+  {% endfor %}
+{% endblock %}

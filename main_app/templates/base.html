@@ -2,35 +2,43 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[codemonk]</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <nav class="nav-extended">
-        <div class="nav-wrapper">
-          <a href="/" class="brand-logo">[codemonk]</a>
-        </div>
-        <div class="nav-content">
-          <ul class="tabs tabs-transparent">
-            <li class="tab"><a class="active" href="/about">About</a></li>
-            <li class="tab"><a href="{% url 'index' %}">Challenges</a></li>
-            <li class="tab"><a href="{% url 'challenges_create' %}">Create Challenge!</a></li>
-            <!-- <li class="tab"><a href="#test4">Test 4</a></li> -->
-          </ul>
-        </div>
-      </nav>
-    <main class="container">
-        {% block content %}
-        {% endblock %}
-    </main>
-    <footer class="page-footer">
-        <div class="right">All Rights Reserved, &copy; 2022 [naughtycode] &nbsp;</div>
-    </footer>
-</body>
-</html>
 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[codemonk]</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+  <nav class="nav-extended">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">[codemonk]</a>
+    </div>
+    <div class="nav-content">
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><a class="active" href="/about">&lt;About&gt;</a></li>
+        <li class="tab"><a href="{% url 'index' %}">&lt;All Challenges&gt;</a></li>
+        {% if user.is_authenticated %}
+          <li class="tab"><a href="{% url 'challenges_user_index' %}">&lt;My Challenges&gt;</a></li>
+          <li class="tab"><a href="{% url 'challenges_create' %}">&lt;Create Challenge!&gt;</a></li>
+          <li class="tab"><a href="{% url 'logout' %}">&lt;Log Out == {{ request.user }}&gt;</a></li>
+        {% else %}
+          <li class="tab"><a href="{% url 'signup' %}">&lt;Sign Up&gt;</a></li>
+          <li class="tab"><a href="{% url 'login' %}">&lt;Log In&gt;</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <main class="container">
+    {% block content %}
+    {% endblock %}
+  </main>
+  <footer class="page-footer">
+    <div class="right">All Rights Reserved, &copy; 2022 [naughtycode] &nbsp;</div>
+  </footer>
+</body>
+
+</html>

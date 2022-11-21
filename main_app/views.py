@@ -26,11 +26,12 @@ def challenges_detail(request, challenge_id):
 class ChallengeCreate(CreateView):
   model = Challenge
   fields = '__all__'
-  success_url = '/challenges'
+  # success_url = '/challenges'
 
 class ChallengeUpdate(UpdateView):
   model = Challenge
   fields = '__all__'
+
 
 class ChallengeDelete(DeleteView):
   model = Challenge

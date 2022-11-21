@@ -10,9 +10,11 @@
     <p>Description: {{ challenge.description|linebreaks }}</p>
     <p>Date: {{ challenge.date }}</p>
   </div>
-  <div class="card-action">
-    <a href="{% url 'challenges_update' challenge.id %}">Edit</a>
-    <a href="{% url 'challenges_delete' challenge.id %}">Delete</a>
-  </div>
+  {% if challenge.user == request.user %}
+    <div class="card-action">
+      <a href="{% url 'challenges_update' challenge.id %}">Edit</a>
+      <a href="{% url 'challenges_delete' challenge.id %}">Delete</a>
+    </div>
+  {% endif %}
 </div>
 {% endblock %}

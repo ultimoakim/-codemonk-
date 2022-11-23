@@ -13,3 +13,8 @@ footer.page-footer {
     padding-top: 0;
     text-align: right;
 }
+
+#comment-title {
+    display: flex;
+    justify-content: space-between;
+}

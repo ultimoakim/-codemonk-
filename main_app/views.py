@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Challenge
+from django.views.generic.list import ListView
+from .models import Challenge, Comment
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CommentForm
 
 # Create your views here.
 # Define the home view
@@ -30,15 +33,16 @@ def challenges_user_index(request):
 
 def challenges_detail(request, challenge_id):
     challenge = Challenge.objects.get(id=challenge_id)
+    comment_form = CommentForm()
     return render(request, 'challenges/detail.html', {
-        'challenge': challenge
+        'challenge': challenge,
+        'comment_form': comment_form
     })
 
 
 class ChallengeCreate(LoginRequiredMixin, CreateView):
   model = Challenge
   fields = ['title', 'description']
-  # success_url = '/challenges'
 
   def form_valid(self, form):
     form.instance.user = self.request.user
@@ -68,3 +72,35 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
+
+class CommentList(ListView):
+  model = Comment
+  fields = ['user', 'date', 'description']
+
+
+def add_comment(request, challenge_id):
+  form = CommentForm(request.POST)
+  if form.is_valid():
+    new_comment = form.save(commit=False)
+    new_comment.challenge_id = challenge_id
+    new_comment.user = request.user
+    new_comment.save()
+  return redirect('detail', challenge_id=challenge_id)
+
+
+class CommentDelete(LoginRequiredMixin, DeleteView):
+  model = Comment
+  # def get_context_data(self, **kwargs):
+  #   context = super().get_context_data(**kwargs)
+  #   print(context)
+  def get_success_url(self):
+    return f"/challenges/{self.object.challenge.id}"
+
+
+
+
+
+
+
+

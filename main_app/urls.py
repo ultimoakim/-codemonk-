@@ -12,7 +12,7 @@ urlpatterns = [
   path('challenges/userchallenges/', views.challenges_user_index, name='challenges_user_index'),
   path('challenges/<int:pk>/', views.CommentList.as_view(), name='comments_index'),
   path('challenges/<int:challenge_id>/add_comments/', views.add_comment, name='add_comment'),
-  # path('challenges/<int:pk>/comments/update/', views.CommentUpdate.as_view(), name='comments_update'),
+  path('comments/<int:pk>/update/', views.CommentUpdate.as_view(), name='update_comment'),
   path('comments/<int:pk>/delete/', views.CommentDelete.as_view(), name='delete_comment'),
   path('accounts/signup/', views.signup, name='signup'),
 ]

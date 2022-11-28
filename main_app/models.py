@@ -25,7 +25,7 @@ class Challenge(models.Model):
 
 class Comment(models.Model):
     date = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=400)
+    description = models.TextField(max_length=3000)
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE

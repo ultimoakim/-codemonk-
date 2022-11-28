@@ -91,12 +91,15 @@ def add_comment(request, challenge_id):
 
 class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
-  # def get_context_data(self, **kwargs):
-  #   context = super().get_context_data(**kwargs)
-  #   print(context)
   def get_success_url(self):
     return f"/challenges/{self.object.challenge.id}"
 
+
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+  model = Comment
+  def get_success_url(self):
+    return f"/challenges/{self.object.challenge.id}"
+  fields = ['description']
 
 
 

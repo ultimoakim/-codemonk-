@@ -40,7 +40,10 @@
         <li><span class="grey-text lighten-1">{{ comment.user }}</span>: {{ comment.description|linebreaks }}</li><br>
         {% if comment.user == request.user %}
           <div class="card-action">
-            <a href="{% url 'delete_comment' comment.id %}">Delete</a><br><br>
+            <a href="{% url 'update_comment' comment.id %}">Edit</a>
+            <a href="{% url 'delete_comment' comment.id %}">Delete</a>
+            <br>
+            <hr>
           </div>
         {% endif %}
       {% empty %}

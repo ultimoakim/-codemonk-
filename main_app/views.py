@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -19,26 +20,33 @@ def about(request):
   return render(request, 'about.html')
 
 def challenges_index(request):
-    challenges = Challenge.objects.all()
-    return render(request, 'challenges/index.html', {
-        'challenges': challenges
-    })
+  challenges = Challenge.objects.all()
+  return render(request, 'challenges/index.html', {
+    'challenges': challenges
+  })
+
+def CommentLike(request, pk):
+  comment = Comment.objects.get(id = pk)
+  if comment.likes.contains(request.user):
+    comment.likes.remove(request.user)
+  else:
+    comment.likes.add(request.user)
+  return redirect('detail', challenge_id = comment.challenge.id)
 
 @login_required
 def challenges_user_index(request):
     challenges = Challenge.objects.filter(user=request.user)
     return render(request, 'challenges/userindex.html', {
-        'challenges': challenges
+      'challenges': challenges
     })
 
 def challenges_detail(request, challenge_id):
     challenge = Challenge.objects.get(id=challenge_id)
     comment_form = CommentForm()
     return render(request, 'challenges/detail.html', {
-        'challenge': challenge,
-        'comment_form': comment_form
+      'challenge': challenge,
+      'comment_form': comment_form,
     })
-
 
 class ChallengeCreate(LoginRequiredMixin, CreateView):
   model = Challenge
@@ -77,6 +85,17 @@ def signup(request):
 class CommentList(ListView):
   model = Comment
   fields = ['user', 'date', 'description']
+
+  def get_context_data(self, **kwargs):
+    data = super().get_context_data(**kwargs)
+    likes_connected = get_object_or_404(Comment, id=self.kwargs['pk'])
+    liked = False
+    if likes_connected.likes.filter(id=self.request.user.id).exists():
+      liked = True
+    data['number_of_likes'] = likes_connected.number_of_likes()
+    data['post_is_liked'] = liked
+    return data
+
 
 
 def add_comment(request, challenge_id):

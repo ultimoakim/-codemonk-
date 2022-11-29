@@ -36,8 +36,28 @@
   <div class="card-content">
     <ul>
       {% for comment in challenge.comment_set.all %}
+        
         <li>{{ comment.date }}</li><br>
+        <li>{{ comment.likes.count }}</li><br>
+        <li>{% for like in comment.likes.all %}</li><br> 
+              <p>Normal Text</p>
+              <p>{{ like }}</p>
+              {% if user == like %}
+              <p>unlike</p>
+              {% else %}
+              <p>like</p>
+              {% endif %}
+            {% endfor %}
         <li><span class="grey-text lighten-1">{{ comment.user }}</span>: {{ comment.description|linebreaks }}</li><br>
+        {% if user.is_authenticated %}
+          <form action="{% url 'comment_like' comment.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" name="comment_id" value="{{object.id}}" class="btn btn-info">Like</button>
+          </form>
+        {% else %}
+          <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to like this comment!</a><br>
+        {% endif %}
+        <strong class="text-secondary">{{ number_of_likes }} Like{{ number_of_likes|pluralize }}</strong>
         {% if comment.user == request.user %}
           <div class="card-action">
             <a href="{% url 'update_comment' comment.id %}">Edit</a>
@@ -55,3 +75,4 @@
 </div>
 
 {% endblock %}
+

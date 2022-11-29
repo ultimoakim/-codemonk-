@@ -14,6 +14,6 @@ urlpatterns = [
   path('challenges/<int:challenge_id>/add_comments/', views.add_comment, name='add_comment'),
   path('comments/<int:pk>/update/', views.CommentUpdate.as_view(), name='update_comment'),
   path('comments/<int:pk>/delete/', views.CommentDelete.as_view(), name='delete_comment'),
-  path('comments/<int:pk>/comment_like/', views.CommentLike, name='comment_like'),
+  path('comments/<int:pk>/comment_toggle/', views.CommentToggle, name='comment_toggle'),
   path('accounts/signup/', views.signup, name='signup'),
 ]

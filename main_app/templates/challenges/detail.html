@@ -33,24 +33,24 @@
       {% for comment in challenge.comment_set.all %}
         <li>{{ comment.date }}</li><br>
         <li>{{ comment.likes.count }}</li><br>
-        {% for like in comment.likes.all %} 
-          <p>Normal Text</p>
-          <p>{{ like }}</p>
-          {% if user == like %}
-            <p>unlike</p>
-          {% else %}
-            <p>like</p>
-          {% endif %}
-        {% endfor %}
-        <li><span class="grey-text lighten-1">{{ comment.user }}</span>: {{ comment.description|linebreaks }}</li><br>
-        {% if user.is_authenticated %}
-          <form action="{% url 'comment_like' comment.id %}" method="POST">
+        {% if user in comment.likes.all %}
+          <form action="{% url 'comment_toggle' comment.id %}" method="POST">
             {% csrf_token %}
-            <button type="submit" name="comment_id" value="{{object.id}}" class="btn btn-info">Like</button>
+            <button type="submit" name="comment_id" class="btn btn-info">Unlike</button>
           </form>
+        {% else %}
+          {% if user.is_authenticated %}
+            <form action="{% url 'comment_toggle' comment.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" name="comment_id" value="{{object.id}}" class="btn btn-info">Like</button>
+            </form>
+          {% endif %}
+        {% endif %}
+        {% if user.is_authenticated %}
         {% else %}
           <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to like this comment!</a><br>
         {% endif %}
+        <li><span class="grey-text lighten-1">{{ comment.user }}</span>: {{ comment.description|linebreaks }}</li><br>
         <strong class="text-secondary">{{ number_of_likes }} Like{{ number_of_likes|pluralize }}</strong>
         {% if comment.user == request.user %}
           <div class="card-action">

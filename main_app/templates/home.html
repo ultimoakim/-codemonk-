@@ -1,6 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<div class="container1">
+  <img src="2.png" class="object" data-value="6" alt="">
+  <img src="3.png" class="object" data-value="4" alt="">
+  <img src="4.png" class="object" data-value="-6" alt="">
+  <img src="5.png" class="object" data-value="8" alt="">
+  <img src="6.png" class="object" data-value="-4" alt="">
+  <img src="7.png" class="object" data-value="5" alt="">
+  <img src="8.png" class="object" data-value="-9" alt="">
+  <img src="9.png" class="object" data-value="-5" alt="">
+</div>
+<script type="text/javascript">
+document.addEventListener("mousemove", parallax);
+  function parallax(e){
+    document.querySelectorAll(".object").forEach(function(move){
+      var moving_value = move.getAttribute("data-value");
+      var x = (e.clientX * moving_value) / 250;
+      var y = (e.clientY * moving_value) / 250;
+move.style.transform = "translateX(" + x + "px) translateY(" + y + "px)";
+  });
+}
+</script>
+
+<!-- Computer below -->
 <div class="container">
   <div class="screen monitor">
     <div class="content">

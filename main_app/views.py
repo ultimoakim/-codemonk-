@@ -25,13 +25,14 @@ def challenges_index(request):
     'challenges': challenges
   })
 
-def CommentLike(request, pk):
+def CommentToggle(request, pk):
   comment = Comment.objects.get(id = pk)
   if comment.likes.contains(request.user):
     comment.likes.remove(request.user)
   else:
     comment.likes.add(request.user)
   return redirect('detail', challenge_id = comment.challenge.id)
+
 
 @login_required
 def challenges_user_index(request):

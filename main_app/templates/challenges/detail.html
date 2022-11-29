@@ -7,18 +7,13 @@
   <div class="card-content">
     <span class="card-title">{{ challenge.name }}</span>
     <p id="comment-title">
-      <p>
-        Title: 
-        {{ challenge.title }}
-      </p>
-      <p>
-        {{ challenge.date }}
-      </p>
+      <h6 class="right-align">{{ challenge.date }}</h6>
+      <h5 class="center-align">{{ challenge.title }}</h5>
     </p>
-    <p>Description: {{ challenge.description|linebreaks }}</p>
+    <h6>{{ challenge.description|linebreaks }}</h6>
   </div>
   {% if challenge.user == request.user %}
-    <div class="card-action">
+    <div class="right-align card-action">
       <a href="{% url 'challenges_update' challenge.id %}">Edit</a>
       <a href="{% url 'challenges_delete' challenge.id %}">Delete</a>
     </div>
@@ -36,18 +31,17 @@
   <div class="card-content">
     <ul>
       {% for comment in challenge.comment_set.all %}
-        
         <li>{{ comment.date }}</li><br>
         <li>{{ comment.likes.count }}</li><br>
-        <li>{% for like in comment.likes.all %}</li><br> 
-              <p>Normal Text</p>
-              <p>{{ like }}</p>
-              {% if user == like %}
-              <p>unlike</p>
-              {% else %}
-              <p>like</p>
-              {% endif %}
-            {% endfor %}
+        {% for like in comment.likes.all %} 
+          <p>Normal Text</p>
+          <p>{{ like }}</p>
+          {% if user == like %}
+            <p>unlike</p>
+          {% else %}
+            <p>like</p>
+          {% endif %}
+        {% endfor %}
         <li><span class="grey-text lighten-1">{{ comment.user }}</span>: {{ comment.description|linebreaks }}</li><br>
         {% if user.is_authenticated %}
           <form action="{% url 'comment_like' comment.id %}" method="POST">
@@ -71,8 +65,6 @@
       {% endfor %}
     </ul>
   </div>
-  
 </div>
-
 {% endblock %}
 

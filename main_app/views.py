@@ -56,16 +56,13 @@ class ChallengeCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-
 class ChallengeUpdate(LoginRequiredMixin, UpdateView):
   model = Challenge
   fields = '__all__'
-    
 
 class ChallengeDelete(LoginRequiredMixin, DeleteView):
   model = Challenge
   success_url = '/challenges'
-
 
 def signup(request):
   error_message = ''
@@ -81,7 +78,6 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-
 class CommentList(ListView):
   model = Comment
   fields = ['user', 'date', 'description']
@@ -96,8 +92,6 @@ class CommentList(ListView):
     data['post_is_liked'] = liked
     return data
 
-
-
 def add_comment(request, challenge_id):
   form = CommentForm(request.POST)
   if form.is_valid():
@@ -107,12 +101,10 @@ def add_comment(request, challenge_id):
     new_comment.save()
   return redirect('detail', challenge_id=challenge_id)
 
-
 class CommentDelete(LoginRequiredMixin, DeleteView):
   model = Comment
   def get_success_url(self):
     return f"/challenges/{self.object.challenge.id}"
-
 
 class CommentUpdate(LoginRequiredMixin, UpdateView):
   model = Comment

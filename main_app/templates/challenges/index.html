@@ -3,12 +3,12 @@
 {% block content %}
   <h1>Challenges</h1>
   {% for challenge in challenges %}
-    <a href="{% url 'detail' challenge.id %}">
+    <a href="{% url 'detail' challenge.id %}" style="text-decoration:none;color:black;">
       <div class="card">
         <div class="card-content">
-          <p>Title: {{ challenge.title }}</p>
-          <p>Description: {{ challenge.description|linebreaks }}</p>
-          <p>Date: {{ challenge.date }}</p>
+          <h6 class="right-align">{{ challenge.date }}</h6>
+          <h5 class="center-align">{{ challenge.title }}</h5>
+          <h6 class="center-align">Description: {{ challenge.description|linebreaks }}</h6>
         </div>
       </div>
     </a>

@@ -16,27 +16,27 @@
 <h3 align="center">Welcome Page</h3>
 <img
     src="main_app/static/images/welcome-page.png"
-    width="700"
+    width="800" height="400"
 /><br>
 <h3 align="center">Homepage</h3>
 <img
   src="main_app/static/images/home-page.png"
-  width="700"
+  width="800" height="400"
 /><br>
 <h3 align="center">My Challenges</h3>
 <img
   src="main_app/static/images/my-challenges.png"
-  width="700"
+  width="800" height="400"
 /><br>
 <h3 align="center">Comment Section</h3>
 <img
   src="main_app/static/images/comment-section.png"
-  width="700"
+  width="800" height="400"
 /><br>
 <h3 align="center">Add a Challenge</h3>
 <img
   src="main_app/static/images/add-challenge.png"
-  width="700"
+  width="800" height="400"
 />
 
 ## :computer: Technologies Used

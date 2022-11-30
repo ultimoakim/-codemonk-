@@ -8,7 +8,7 @@
 {% endif %}
 <form action="" method="POST">
   {% csrf_token %}
-  <table>
+  <table class="challengeTable">
     {{ form.as_table }}
   </table>
   <button class="right btn waves-effect waves-light" type="submit" name="action">Submit

@@ -472,3 +472,17 @@ body {
     font-size: 26px;
   }
 } */
+
+.challengeTable > tbody > tr > th > label {
+  color: hotpink;
+}
+
+.challengeTable > tbody > tr > td > input {
+  border: 2px solid !important;
+  border-color: black !important;
+}
+
+.challengeTable > tbody > tr > td {
+  border: 2px solid !important;
+  border-color: black !important;
+}

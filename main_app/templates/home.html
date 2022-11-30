@@ -9,61 +9,79 @@
   <title>Document</title>
   <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/holidays/hol-4/hol328.ani), url(https://cur.cursors-4u.net/holidays/hol-4/hol328.png), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2009/10/14/animated-yellow-cute-ghost.html" target="_blank" title="Animated Yellow Cute Ghost"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Animated Yellow Cute Ghost" style="position:absolute; top: 0px; right: 0px;" /></a>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
 <!-- Kris's HTML -->
-  <div class="container">
-    <div class=“screen monitor”>
-      <div class=“content”>
-        <div class=“pg”>
-          <ul class=“btns”>
-            <li>YES WE CAN!</li>
-            <li></li>
-            <li></li>
+<div class="container-main">
+  <div class="container-computer">
+    <div class="screen monitor">
+      <div class="content">
+        <div class="pg">
+          <ul class="btns">
+            <li></li><li></li><li></li>
           </ul>
-          <ul class=“txt”>
+          <ul class="txt">
+            <li></li>        
             <li></li>
-            <li></li>
-            <li class=“thin”></li>
-            <li class=“thin”></li>
-            <li class=“thin”></li>
-          </ul>
+            <li class="thin"></li>
+            <li class="thin"></li>
+            <li class="thin"></li>
+          </ul>  
         </div>
       </div>
-      <div class=“base”>
-        <div class=“grey-shadow”></div>
-        <div class=“foot top”></div>
-        <div class=“foot bottom”></div>
-        <div class=“shadow”></div>
-        <div class=“keyboard”>
-          <div class=“btm”></div>
-          <ul class=“keys”>
+      <div class="base">
+        <div class="grey-shadow"></div>
+        <div class="foot top"></div>
+        <div class="foot bottom"></div>
+        <div class="shadow"></div>
+        <div class="keyboard">
+          <div class="btm"></div>
+          <ul class="keys">
             <li></li>
             <li></li>
             <li></li>
             <li></li>
           </ul>
-          <div class=“shadow”></div>
+          <div class="shadow"></div>
         </div>
       </div>
     </div>
-    <div class=“mouse”>
-      <div class=“content”>
-        <ul class=“txt txt-mouse”>
+    <div class="laptop">
+      <div class="content">
+        <ul class="txt txt-laptop">
+          <li></li>        
           <li></li>
-          <li></li>
-          <li class=“thin”></li>
-          <li class=“thin”></li>
-          <li class=“thin”></li>
-        </ul>
+          <li class="thin"></li>
+          <li class="thin"></li>
+          <li class="thin"></li>
+        </ul>          
       </div>
-      <div class=“btm”></div>
-      <div class=“shadow”></div>
+      <div class="btm"></div>
+      <div class="shadow"></div>
     </div>
   </div>
-</body>
-
+</div>
+<div class="container1">
+  <img src="static/images/2.png" class="object" data-value="6" alt="">
+  <img src="static/images/3.png" class="object" data-value="4" alt="">
+  <img src="static/images/4.png" class="object" data-value="-6" alt="">
+  <img src="static/images/5.png" class="object" data-value="8" alt="">
+  <img src="static/images/6.png" class="object" data-value="-4" alt="">
+  <img src="static/images/7.png" class="object" data-value="5" alt="">
+  <img src="static/images/8.png" class="object" data-value="-9" alt="">
+  <img src="static/images/9.png" class="object" data-value="-5" alt="">
+  <script type="text/javascript">
+    document.addEventListener("mousemove", parallax);
+    function parallax(e){
+      document.querySelectorAll(".object").forEach(function(move){
+        var moving_value = move.getAttribute("data-value");
+        var x = (e.clientX * moving_value) / 250;
+        var y = (e.clientY * moving_value) / 250;
+        move.style.transform = "translateX(" + x + "px) translateY(" + y + "px)";
+      });
+    }
+  </script>
+</div>
 </html>

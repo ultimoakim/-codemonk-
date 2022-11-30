@@ -7,8 +7,10 @@
 
 <form method="POST" action="{% url 'signup' %}">
   {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" class="btn" value="Sign Up">
+  <table id="login-table">
+    {{ form.as_table }}
+  </table>
+  <input type="submit" class="right btn black" value="Sign Up">
 </form>
 
 {% endblock %}

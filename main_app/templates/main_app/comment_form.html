@@ -4,10 +4,10 @@
 <h1>Edit Comment</h1>
 <form action="" method="POST">
   {% csrf_token %}
-  <table>
+  <table class="challengeTable">
     {{ form.as_table }}
   </table>
-  <input type="submit" value="Submit!" class="btn">
+  <input type="submit" value="Submit!" class="right btn black">
 </form>
 
 {% endblock %}

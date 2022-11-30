@@ -59,7 +59,7 @@ class ChallengeCreate(LoginRequiredMixin, CreateView):
 
 class ChallengeUpdate(LoginRequiredMixin, UpdateView):
   model = Challenge
-  fields = '__all__'
+  fields = ['title', 'description']
 
 class ChallengeDelete(LoginRequiredMixin, DeleteView):
   model = Challenge

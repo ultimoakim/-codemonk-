@@ -10,12 +10,13 @@
       <h6 class="right-align">{{ challenge.date }}</h6>
       <h5 class="center-align">{{ challenge.title }}</h5>
     </p>
-    <h6>{{ challenge.description|linebreaks }}</h6>
+    <h6>Description: {{ challenge.description|linebreaks }}</h6>
+    <h6 class="right-align teal-text text-lighten-2">{{ challenge.user }}</h6>
   </div>
   {% if challenge.user == request.user %}
-    <div class="right-align card-action">
-      <a href="{% url 'challenges_update' challenge.id %}">Edit</a>
-      <a href="{% url 'challenges_delete' challenge.id %}">Delete</a>
+    <div class="card-action">
+      <button class="btn-small black"><a href="{% url 'challenges_update' challenge.id %}" style="color:white;">Edit</a></button>
+      <button class="btn-small black"><a href="{% url 'challenges_delete' challenge.id %}" style="color:white;">Delete</a></div></button>
     </div>
   {% endif %}
 </div>
@@ -24,41 +25,45 @@
     {% csrf_token %}
     <h5>Comment:</h5>
     <textarea name="description" cols="70" rows="30" placeholder="Put in your comment/solution here!"></textarea>
-    <input type="submit" class="btn" value="Add comment">
+    <input type="submit" class="right btn black" value="Add comment">
+    <br><br><br>
   </form>
 </div>
 <div class="card">
   <div class="card-content">
     <ul>
       {% for comment in challenge.comment_set.all %}
-        <li>{{ comment.date }}</li><br>
-        <li>{{ comment.likes.count }}</li><br>
-        {% if user in comment.likes.all %}
-          <form action="{% url 'comment_toggle' comment.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" name="comment_id" class="btn btn-info">Unlike</button>
-          </form>
-        {% else %}
-          {% if user.is_authenticated %}
-            <form action="{% url 'comment_toggle' comment.id %}" method="POST">
-              {% csrf_token %}
-              <button type="submit" name="comment_id" value="{{object.id}}" class="btn btn-info">Like</button>
-            </form>
-          {% endif %}
-        {% endif %}
+        <h6 class="right-align">{{ comment.date }}</h6><br>
         {% if user.is_authenticated %}
         {% else %}
           <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to like this comment!</a><br>
         {% endif %}
-        <li><span class="grey-text lighten-1">{{ comment.user }}</span>: {{ comment.description|linebreaks }}</li><br>
-        <strong class="text-secondary">{{ number_of_likes }} Like{{ number_of_likes|pluralize }}</strong>
+        <li>
+          <span class="teal-text text-lighten-2">
+            {{ comment.user }}:
+          </span>
+            {{ comment.description|linebreaks }}
+          <h6 class="right-align">{{ comment.likes.count }} like{{ comment.likes.count|pluralize }}</h6>
+          {% if user in comment.likes.all %}
+            <form action="{% url 'comment_toggle' comment.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" name="comment_id" class="right btn-floating btn-large waves-effect waves-light red lighten-3"><i class="material-icons">favorite</i></button>
+            </form>
+          {% else %}
+            {% if user.is_authenticated %}
+              <form action="{% url 'comment_toggle' comment.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" name="comment_id" value="{{object.id}}" class="right btn-floating btn-large waves-effect waves-light red lighten-3"><i class="material-icons">favorite_border</i></button>
+              </form>
+            {% endif %}
+          {% endif %}
+        </li><br><br><br>
         {% if comment.user == request.user %}
-          <div class="card-action">
-            <a href="{% url 'update_comment' comment.id %}">Edit</a>
-            <a href="{% url 'delete_comment' comment.id %}">Delete</a>
-            <br>
-            <hr>
-          </div>
+          <button class="btn-small black"><a href="{% url 'update_comment' comment.id %}" style="color:white;">Edit</a></button>
+          <button class="btn-small black"><a href="{% url 'delete_comment' comment.id %}" style="color:white;">Delete</a></button>
+          <br>
+          <hr>
+          <br>
         {% endif %}
       {% empty %}
         <li>No comments yet.</li>
